@@ -1,0 +1,157 @@
+===============================================================================
+WEEK 01 ASSIGNMENT OUTPUT
+===============================================================================
+
+===============================================================================
+PART 1: Web API with ASP.NET Core Controllers - Pizza Store Output
+===============================================================================
+
+TERMINAL OUTPUT FROM RUNNING THE APPLICATION:
+----------------------------------------------
+
+C:\Users\PC\byu classwork\CSE325\Week01\PizzaStore> dotnet run --urls "http://localhost:5000"
+Building...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\PC\byu classwork\CSE325\Week01\PizzaStore
+
+
+API TEST - GET REQUEST TO http://localhost:5000/Pizza:
+-------------------------------------------------------
+
+[
+  {
+    "id": 1,
+    "name": "Classic Italian",
+    "isGlutenFree": false
+  },
+  {
+    "id": 2,
+    "name": "Veggie",
+    "isGlutenFree": true
+  },
+  {
+    "id": 3,
+    "name": "Meat Lovers Supreme",
+    "isGlutenFree": false
+  },
+  {
+    "id": 4,
+    "name": "Hawaiian",
+    "isGlutenFree": false
+  }
+]
+
+SUMMARY:
+--------
+The Pizza Store web API successfully runs and includes 4 pizzas:
+1. Classic Italian (Gluten-Free: No)
+2. Veggie (Gluten-Free: Yes)
+3. Meat Lovers Supreme (Gluten-Free: No)
+4. Hawaiian (Gluten-Free: No) -- ADDITIONAL RECORD ADDED
+
+API Endpoints Implemented:
+- GET /Pizza - Returns all pizzas
+- GET /Pizza/{id} - Returns a specific pizza by ID
+- POST /Pizza - Creates a new pizza
+- PUT /Pizza/{id} - Updates an existing pizza
+- DELETE /Pizza/{id} - Deletes a pizza
+
+===============================================================================
+PART 2: Sales Summary Function - Working Code
+===============================================================================
+
+TERMINAL OUTPUT FROM RUNNING THE APPLICATION:
+----------------------------------------------
+
+C:\Users\PC\byu classwork\CSE325\Week01\FilesAndDirectories> dotnet run
+Files in stores directory:
+stores\201.txt
+stores\202.txt
+stores\203.txt
+stores\204.txt
+
+Total Sales: $616.49
+
+Sales summary report generated: SalesSummary.txt
+
+
+COMPLETE WORKING CODE:
+-----------------------
+
+static void GenerateSalesSummaryReport(string salesDirectory)
+{
+    var reportBuilder = new StringBuilder();
+    double totalSales = 0;
+    
+    // Header
+    reportBuilder.AppendLine("Sales Summary");
+    reportBuilder.AppendLine("----------------------------");
+
+    // Get all sales files and calculate total
+    string[] salesFiles = Directory.GetFiles(salesDirectory, "*.txt");
+    var fileDetails = new List<(string fileName, double amount)>();
+
+    foreach (string file in salesFiles)
+    {
+        string salesText = File.ReadAllText(file);
+        if (double.TryParse(salesText, out double salesAmount))
+        {
+            totalSales += salesAmount;
+            string fileName = Path.GetFileName(file);
+            fileDetails.Add((fileName, salesAmount));
+        }
+    }
+
+    // Add total to report
+    reportBuilder.AppendLine($" Total Sales: {totalSales:C}");
+    reportBuilder.AppendLine();
+    reportBuilder.AppendLine(" Details:");
+
+    // Add individual file details
+    foreach (var (fileName, amount) in fileDetails)
+    {
+        reportBuilder.AppendLine($"  {fileName}: {amount:C}");
+    }
+
+    // Write report to file
+    File.WriteAllText("SalesSummary.txt", reportBuilder.ToString());
+}
+
+===============================================================================
+FUNCTION DESCRIPTION:
+===============================================================================
+
+The GenerateSalesSummaryReport function:
+1. Creates a StringBuilder to build the report content
+2. Reads all .txt files from the specified sales directory
+3. Parses the sales amounts from each file
+4. Calculates the total sales across all files
+5. Formats the report with a header, total sales, and detailed breakdown
+6. Writes the complete report to "SalesSummary.txt"
+
+This function works with individual store sales files (201.txt, 202.txt, 203.txt, 
+204.txt) to generate a comprehensive sales summary report.
+
+
+GENERATED SALES SUMMARY REPORT (SalesSummary.txt):
+---------------------------------------------------
+
+Sales Summary
+----------------------------
+ Total Sales: $616.49
+
+ Details:
+  201.txt: $100.50
+  202.txt: $250.75
+  203.txt: $175.25
+  204.txt: $89.99
+
+===============================================================================
+END OF DOCUMENT
+===============================================================================
