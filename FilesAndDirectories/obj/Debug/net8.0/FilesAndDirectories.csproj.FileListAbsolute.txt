@@ -12,3 +12,4 @@ C:\Users\PC\byu classwork\CSE325\Week01\FilesAndDirectories\obj\Debug\net8.0\ref
 C:\Users\PC\byu classwork\CSE325\Week01\FilesAndDirectories\obj\Debug\net8.0\FilesAndDirectories.pdb
 C:\Users\PC\byu classwork\CSE325\Week01\FilesAndDirectories\obj\Debug\net8.0\FilesAndDirectories.genruntimeconfig.cache
 C:\Users\PC\byu classwork\CSE325\Week01\FilesAndDirectories\obj\Debug\net8.0\ref\FilesAndDirectories.dll
+C:\Users\PC\byu classwork\CSE325\Week01\FilesAndDirectories\obj\Debug\net8.0\FilesAndDirectories.sourcelink.json
